@@ -1,0 +1,23 @@
+== Description ==
+  socklog-run is a package which replaces the syslog scheme with one based on socklog. (http://smarden.org/socklog)
+ 
+== Usage ==
+  This package creates two services by default, socklog-unix and socklog-klog
+  /etc/runit/runsvdir/archlinux-default.  Upon install it will link /etc/runit/runsvdir/default to runit-run-default,
+  which will only start two getty's, tty2 and tty3.  If you want the standard archlinux behavior, you are encouraged
+  to copy the archlinux-default directory to one of your own naming (perhaps by hostname). 
+    cp -a /etc/runit/runsvdir/archlinux-default/ /etc/runit/runsvdir/your_hostname
+  Then to try this runlevel, stop cron and syslog ng and
+    runsvchdir your_hostname
+  If all looks well, you can make this the new default runlevel with 
+    ln -sf /etc/runit/runsvdir/your_hostname /etc/runit/runsvdir/default
+
+  Runit does not restrict the number of runlevels you can have, any directory in /etc/runit/runsvdir/ can be used as
+  a runlevel, with runsvchdir <thedirectory> doing the changing.  On boot whatever runlevel 'default' is linked to
+  will boot, unless you use a modified kernel command line, runit only cares about the very last word of the kernel
+  command line, if it matches a directory in /etc/runit/runsvdir, that runlevel will boot instead.
+
+== Support ==
+  You can find Death_Syn or bougyman in #archlinux on freenode.
+
+
